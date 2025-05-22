@@ -2,7 +2,7 @@ local serialize = require("src.io.serialize")
 
 ---@param val any
 ---@param path string
-local function dump (val, path)
+local function dump(val, path)
     local content = serialize(val)
 
     local f, err = io.open(path, "w")
