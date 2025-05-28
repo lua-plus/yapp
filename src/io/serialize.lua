@@ -1,6 +1,7 @@
 
 local globals = require("src.__internal.globals")
 globals.init(_G)
+local _, get_source = pcall(require, "src.debug.fn.get_source")
 
 local global_names = globals.get_names()
 
@@ -73,7 +74,10 @@ local function serialize_internal(value, soft, depth, traversed)
         return "{" .. join .. table.concat(entries, "," .. join) .. "\n" .. ("\t"):rep(depth) .. "}"
     elseif t == "function" then
         if soft then
-            return "(function)"
+            if get_source then
+                return string.format("[function %s]", get_source(value))
+            end
+            return "[function]"
         end
 
         return ("--[[ (Serialized function) ]] load(%q)()"):format(string.dump(value))
