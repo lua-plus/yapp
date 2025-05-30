@@ -38,12 +38,41 @@ local function namespace(modname, modpath)
         -- avoid infinite recursion
         if not (sub_mod == modname or sub_init == modroot) then
             if not is_dir(path) or exists(join(path, "init.lua")) then
-                modules[file] = require(sub_mod)
+                -- static loading
+                -- modules[file] = require(sub_mod)
+                
+                -- on-demand loading
+                modules[file] = sub_mod
             end
         end
     end
 
-    return modules
+    -- static loading
+    -- return modules
+
+    -- on-demand loading
+    return setmetatable({}, {
+        __index = function (t, k)
+            local modname = modules[k]
+            if not modname then
+                return nil
+            end
+            modules[k] = nil
+
+            local mod = require(modname)
+            t[k] = mod
+            return mod
+        end,
+        __pairs = function (t)
+            -- load all module names
+            for name in pairs(modules) do
+                local _ = t[name]
+            end
+
+            ---@diagnostic disable-next-line:redundant-return-value
+            return next, t, nil
+        end
+    })
 end
 
 return namespace
