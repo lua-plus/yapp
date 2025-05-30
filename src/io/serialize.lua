@@ -18,7 +18,7 @@ local function serialize_internal(value, soft, depth, traversed)
         local global_name = global_names[value]
         if global_name then
             return global_name
-        end            
+        end
     end
 
     if t == "nil" then
@@ -30,7 +30,7 @@ local function serialize_internal(value, soft, depth, traversed)
     elseif t == "boolean" then
         return tostring(value)
     elseif t == "table" then
-        if traversed[value] then
+        if traversed[value] or (getmetatable(value) or {}).__index == value then
             if soft then
                 return "(recursive table)"
             end
@@ -39,9 +39,8 @@ local function serialize_internal(value, soft, depth, traversed)
         end
         traversed[value] = true
 
-        -- check for empty tables.
-        if next(value) == nil then
-            return "{}"
+        if soft and (getmetatable(value) or {}).__tostring then
+            return tostring(value)
         end
 
         local entries = {}
@@ -67,6 +66,10 @@ local function serialize_internal(value, soft, depth, traversed)
                     ))
                 end
             end
+        end
+
+        if #entries == 0 then
+            return "{}"
         end
 
         local join = "\n" .. ("\t"):rep(depth + 1)
