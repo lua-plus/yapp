@@ -2,10 +2,10 @@ local has_lfs, lfs = pcall(require, "lfs")
 
 local is_windows = require("src.os.is_windows")
 
----@alias fs.LsDir fun (path: string): string[]
+---@alias Yapp.Fs.Ls fun (path: string): string[]
 
 if has_lfs then
-    ---@type fs.LsDir
+    ---@type Yapp.Fs.Ls
     local function ls_lfs(path)
         local children = {}
 
@@ -24,7 +24,7 @@ end
 
 if is_windows then
     --- really this is dos too but dos will match windows
-    ---@type fs.LsDir
+    ---@type Yapp.Fs.Ls
     local function ls_windows(path)
         local children = {}
 
@@ -43,7 +43,7 @@ if is_windows then
     return ls_windows
 end
 
----@type fs.LsDir
+---@type Yapp.Fs.Ls
 local function ls_unix(path)
     local children = {}
 
