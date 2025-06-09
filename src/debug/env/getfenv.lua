@@ -6,7 +6,7 @@ return getfenv or (debug or {}).getfenv or (function()
     
     assert(debug_getupvalue, "debug.getupvalue must exist")
     
-    function getfenv(fn)
+    local function getfenv(fn)
         local i = 1
         while true do
             local name, val = debug_getupvalue(fn, i)
