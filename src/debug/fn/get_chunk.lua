@@ -10,7 +10,10 @@ local function get_chunk(fn)
         return "(C function - cannot introspect)"
     end
 
-    local f, err = io.open(info.short_src, "r")
+    local source = info.source
+    source = source:sub(2)
+
+    local f, err = io.open(source, "r")
     if not f then
         return string.format("(Error opening file: %s)", err)
     end
