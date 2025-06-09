@@ -1,5 +1,7 @@
 local debug_getinfo = assert((debug or {}).getinfo, "debug.getinfo must exist.")
 
+-- TODO FIXME get argument names.
+
 ---@param fn function
 local function describe(fn)
     local info = debug_getinfo(fn, "uS")
