@@ -7,6 +7,10 @@ return getfenv or (debug or {}).getfenv or (function()
     assert(debug_getupvalue, "debug.getupvalue must exist")
     
     local function getfenv(fn)
+        if type(fn) == "number" then
+            fn = debug.getinfo(fn, "f").func
+        end
+
         local i = 1
         while true do
             local name, val = debug_getupvalue(fn, i)

@@ -8,6 +8,10 @@ return setfenv or (debug or {}).setfenv or (function ()
     assert(debug_getupvalue and debug_upvaluejoin, "debug.getupvalue and debug.upvaluejoin must exist")
 
     local function setfenv(fn, env)
+        if type(fn) == "number" then
+            fn = debug.getinfo(fn, "f").func
+        end
+        
         local i = 1
         while true do
             local name = debug_getupvalue(fn, i)
