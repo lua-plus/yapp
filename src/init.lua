@@ -3,4 +3,8 @@ globals.init(_G)
 
 local namespace = require("src.__internal.namespace")
 
-return namespace(...)
+local name, path = ...
+
+return namespace(name, path, {
+    _VERSION = "0.1.0"
+})

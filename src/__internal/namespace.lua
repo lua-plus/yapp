@@ -1,9 +1,10 @@
 local dirname = require("src.fs.path.dirname")
-local ls = require("src.fs.ls")
-local is_dir = require("src.fs.is_dir")
-local parse = require("src.fs.path.parse")
-local join     = require("src.fs.path.join")
-local exists   = require("src.fs.exists")
+local ls      = require("src.fs.ls")
+local is_dir  = require("src.fs.is_dir")
+local parse   = require("src.fs.path.parse")
+local join    = require("src.fs.path.join")
+local exists  = require("src.fs.exists")
+local crush   = require("src.table.crush")
 
 --- If a string has a trailing ".init", remove it.
 ---@param modname string
@@ -19,7 +20,8 @@ end
 -- TODO mark as 'force atomic' or similar so LuaPlus can bundle
 ---@param modname string
 ---@param modpath string
-local function namespace(modname, modpath)
+---@param fields table?
+local function namespace(modname, modpath, fields)
     -- TODO assert modname & modpath are expected values
 
     local modroot = rm_trailing_init(modname)
@@ -40,7 +42,7 @@ local function namespace(modname, modpath)
             if not is_dir(path) or exists(join(path, "init.lua")) then
                 -- static loading
                 -- modules[file] = require(sub_mod)
-                
+
                 -- on-demand loading
                 modules[file] = sub_mod
             end
@@ -51,8 +53,9 @@ local function namespace(modname, modpath)
     -- return modules
 
     -- on-demand loading
-    return setmetatable({}, {
-        __index = function (t, k)
+    local ret = fields or {}
+    return setmetatable(ret, {
+        __index = function(t, k)
             local modname = modules[k]
             if not modname then
                 return nil
@@ -63,7 +66,7 @@ local function namespace(modname, modpath)
             t[k] = mod
             return mod
         end,
-        __pairs = function (t)
+        __pairs = function(t)
             -- load all module names
             for name in pairs(modules) do
                 local _ = t[name]
