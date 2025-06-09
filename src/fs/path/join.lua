@@ -10,7 +10,7 @@ local function join(...)
     for i = 1, #elements do
         local item = elements[i]
 
-        if item then
+        if item and #item ~= 0 then
             local is_first = i == 1
 
             -- Remove starts with slash
