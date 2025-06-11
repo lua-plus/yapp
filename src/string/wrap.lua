@@ -6,11 +6,13 @@ local function wrap(value, mode, pos, overflow_str)
     mode = mode or "on"
     overflow_str = overflow_str or "..."
 
-    local x, y, width, height = table.unpack(pos)
+    local x, y, width, height = table.unpack(pos or {})
+    x = x or 0
+    y = y or 0
 
     local lines = {}
     local buffer = value
-    while #buffer ~= 0 and #lines <= height do
+    while #buffer ~= 0 and (not height or #lines <= height) do
         -- remove preceding x value
         buffer = buffer:sub(x)
 
@@ -26,7 +28,7 @@ local function wrap(value, mode, pos, overflow_str)
         if not sub then
             table.insert(lines, "")
             buffer = buffer:sub(1)
-        elseif #sub <= width then
+        elseif (not width or #sub <= width) then
             table.insert(lines, sub)
             buffer = buffer:sub(#sub + 1)
         elseif mode == "on" then
