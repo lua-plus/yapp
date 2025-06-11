@@ -1,3 +1,3 @@
 
 ---@diagnostic disable-next-line:deprecated
-return package.searchers or package.loaders
+return _G.package.searchers or _G.package.loaders
