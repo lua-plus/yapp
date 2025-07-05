@@ -6,5 +6,5 @@ local namespace = require("src.__internal.namespace")
 local name, path = ...
 
 return namespace(name, path, {
-    _VERSION = "0.2.0"
+    _VERSION = "0.4.0"
 })
