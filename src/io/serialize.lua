@@ -20,7 +20,7 @@ local function serialize_internal(value, soft, depth, traversed)
             return global_name
         end
     end
-
+    
     if t == "nil" then
         return "nil"
     elseif t == "number" then
@@ -30,7 +30,9 @@ local function serialize_internal(value, soft, depth, traversed)
     elseif t == "boolean" then
         return tostring(value)
     elseif t == "table" then
-        if traversed[value] or (getmetatable(value) or {}).__index == value then
+        local mt = getmetatable(value) or {}
+
+        if traversed[value] or mt.__index == value then
             if soft then
                 return "(recursive table)"
             end
@@ -39,8 +41,8 @@ local function serialize_internal(value, soft, depth, traversed)
         end
         traversed[value] = true
 
-        if soft and (getmetatable(value) or {}).__tostring then
-            return tostring(value)
+        if soft and mt.__tostring then
+            return string.format("%q", tostring(value))
         end
 
         local entries = {}
@@ -49,7 +51,16 @@ local function serialize_internal(value, soft, depth, traversed)
             table.insert(entries, serialize_internal(v, soft, depth + 1, traversed))
         end
 
-        for k, v in pairs(value) do
+        for k, v in pairs(value) do            
+            -- check for recursively self-generating objects like chalk
+            if mt.__pairs and mt == getmetatable(v) and getmetatable(v[k] or {}) == mt then
+                if soft then
+                    return "(deep self-generating table)"
+                end
+
+                error("Cannot serialize deep self-generating tables")
+            end
+
             if type(k) ~= "number" then
                 local v_str = serialize_internal(v, soft, depth + 1, traversed)
 
