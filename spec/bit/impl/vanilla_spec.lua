@@ -1,5 +1,5 @@
 local bit = require("src.bit")
-local bit_vanilla = require("src.bit.vanilla")
+local bit_vanilla = require("src.bit.impl.vanilla")
 
 local pow = require("src.math.pow")
 local list_to_keys = require("src.table.list_to_keys")
@@ -58,7 +58,7 @@ describe("bit_vanilla", function()
     end)
 
     describe("handles extreme values", function()
-        local very_large_value = pow(2, 32) - 1
+        local very_large_value = pow(2, 32)
 
         for op_name, native_op in pairs(bit) do
             if type(native_op) == "function" then

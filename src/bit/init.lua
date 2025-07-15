@@ -1,3 +1,6 @@
+local mod32 = require("src.bit.common.mod32")
+local bit_unsafe = require("src.bit.unsafe")
+
 --- Integer bitwise operations equivalent to lua 5.3. You should assume this ignores metatables,
 --- because integers.
 ---@class Yapp.Bit
@@ -11,27 +14,74 @@
 ---@field _is_native true?
 ---@field _implementation_name string?
 
-do
-    ---@diagnostic disable-next-line:deprecated
-    local load = loadstring or load
-    local has_bit_operators = load("return 1 << 2")
+---@class Yapp.Bit.Entrypoint : Yapp.Bit
+---@field unsafe Yapp.Bit
+-- ---@field mt Yapp.Bit
 
-    if has_bit_operators then
-        return require("src.bit.bit_53")
-    end
+--- Throw some checks around the given implementation
+---@param lib Yapp.Bit
+---@return Yapp.Bit.Entrypoint
+local function wrap_bit(lib)
+    local band = lib.band
+    local bor = lib.bor
+    local bxor = lib.bxor
+    local bnot = lib.bnot
+    local lshift = lib.lshift
+    local rshift = lib.rshift
+
+    ---@type Yapp.Bit.Entrypoint
+    local out = {
+        band = function(a, b)
+            a = mod32(a)
+            b = mod32(b)
+
+            return mod32(band(a, b))
+        end,
+        bor = function(a, b)
+            a = mod32(a)
+            b = mod32(b)
+
+            return mod32(bor(a, b))
+        end,
+
+        bxor = function(a, b)
+            a = mod32(a)
+            b = mod32(b)
+
+            return mod32(bxor(a, b))
+        end,
+
+        bnot = function(a)
+            a = mod32(a)
+
+            return mod32(bnot(a))
+        end,
+
+        lshift = function(a, b)
+            assert(a >= 0 and b >= 0, "arguments must be non-negative")
+
+            a = mod32(a)
+            b = mod32(b)
+
+            return mod32(lshift(a, b))
+        end,
+
+        rshift = function(a, b)
+            assert(a >= 0 and b >= 0, "arguments must be non-negative")
+
+            a = mod32(a)
+            b = mod32(b)
+
+            return mod32(rshift(a, b))
+        end,
+
+        _is_native = lib._is_native,
+        _implementation_name = lib._implementation_name,
+
+        unsafe = lib
+    }
+
+    return out
 end
 
-do
-    if package.loaded['bit32'] then
-        return require("src.bit.bit_52")
-    end
-end
-
-do
-    -- LuaJIT bit operators
-    if package.loaded['bit'] then
-        return require("src.bit.bit_jit")
-    end
-end
-
-return require("src.bit.vanilla")
+return wrap_bit(bit_unsafe)

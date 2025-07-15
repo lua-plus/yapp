@@ -1,17 +1,9 @@
 local floor = math.floor
 local pow = require("src.math.pow")
+local mod32 = require("src.bit.common.mod32")
 
-local mod_32 = floor(pow(2, 33))
---- Safely perform signed modulo on the value given
----@param value integer
----@return integer
-local function bit_mod32(value)
-    if value >= 0 then
-        return floor(value % mod_32)
-    end
-
-    return -floor(-value % mod_32)
-end
+-- value used to simulate 
+local wrap = floor(pow(2, 33))
 
 --- Similar to https://github.com/AlberTajuelo/bitop-lua, but
 --- this approach is more efficient to index and supports negatives.
@@ -25,14 +17,14 @@ local function make_bitop(op)
         a = floor(a)
         if a < 0 then
             sign_a = 1
-            a = mod_32 + a
+            a = wrap + a
         end
 
         local sign_b = 0
         b = floor(b)
         if b < 0 then
             sign_b = 1
-            b = mod_32 + b
+            b = wrap + b
         end
 
         local sign_idx = sign_a * 2 + sign_b + 1
@@ -56,10 +48,10 @@ local function make_bitop(op)
         end
 
         if sign == -1 then
-            out = out - mod_32
+            out = out - wrap
         end
 
-        return bit_mod32(out)
+        return mod32(out)
     end
 end
 
@@ -68,35 +60,27 @@ local inf = 1/0
 ---@param a integer
 ---@param b integer
 local function lshift(a, b)
-    assert(a >= 0 and b >= 0, "arguments must be non-negative")
-    a = floor(a)
-    b = floor(b)
-
-    local shifted = floor(a * pow(2, b))
+    local shifted = a * pow(2, b)
 
     -- This number isn't representable.
     if shifted == inf then
         return 0
     end
 
-    return bit_mod32(shifted)
+    return mod32(shifted)
 end
 
 ---@param a integer
 ---@param b integer
 local function rshift(a, b)
-    assert(a >= 0 and b >= 0, "arguments must be non-negative")
-    a = floor(a)
-    b = floor(b)
-
     local shifted = a / pow(2, b)
 
-    return bit_mod32(shifted)
+    return mod32(shifted)
 end
 
 ---@param a integer
 local function bnot(a)
-    return bit_mod32(-a) - 1
+    return mod32(-a) - 1
 end
 
 ---@type Yapp.Bit

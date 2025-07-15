@@ -13,11 +13,9 @@ local bit_53 = {
         return ~a
     end,
     lshift = function(a, b)
-        assert(a >= 0 and b >= 0, "arguments must be non-negative")
         return a << b
     end,
     rshift = function(a, b)
-        assert(a >= 0 and b >= 0, "arguments must be non-negative")
         return a >> b
     end,
 
