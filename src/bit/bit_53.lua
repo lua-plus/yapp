@@ -12,11 +12,11 @@ local bit_53 = {
     bnot = function(a)
         return ~a
     end,
-    bshl = function(a, b)
+    lshift = function(a, b)
         assert(a >= 0 and b >= 0, "arguments must be non-negative")
         return a << b
     end,
-    bshr = function(a, b)
+    rshift = function(a, b)
         assert(a >= 0 and b >= 0, "arguments must be non-negative")
         return a >> b
     end,

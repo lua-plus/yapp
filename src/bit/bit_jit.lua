@@ -27,11 +27,11 @@ local bit_jit = {
     bnot = function(a)
         return bit.bnot(a)
     end,
-    bshl = function(a, b)
+    lshift = function(a, b)
         assert(a >= 0 and b >= 0, "arguments must be non-negative")
         return bit.lshift(a, b)
     end,
-    bshr = function(a, b)
+    rshift = function(a, b)
         assert(a >= 0 and b >= 0, "arguments must be non-negative")
         return bit.rshift(a, b)
     end,

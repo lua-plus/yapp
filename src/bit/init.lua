@@ -5,8 +5,8 @@
 ---@field bor fun(a: integer, b:integer): integer logical OR two inputs
 ---@field bxor fun(a: integer, b: integer): integer logical XOR two inputs
 ---@field bnot fun(a: integer): integer logical NOT two inputs
----@field bshl fun(a: integer, b:integer): integer shift a left by b
----@field bshr fun(a: integer, b: integer): integer shift a right by b
+---@field lshift fun(a: integer, b:integer): integer shift a left by b
+---@field rshift fun(a: integer, b: integer): integer shift a right by b
 ---
 ---@field _is_native true?
 ---@field _implementation_name string?

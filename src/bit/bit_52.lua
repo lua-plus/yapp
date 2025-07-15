@@ -14,11 +14,11 @@ local bit_52 = {
     bnot = function(a)
         return bit32.bnot(a)
     end,
-    bshl = function(a, b)
+    lshift = function(a, b)
         assert(a >= 0 and b >= 0, "arguments must be non-negative")
         return bit32.lshift(a, b)
     end,
-    bshr = function(a, b)
+    rshift = function(a, b)
         assert(a >= 0 and b >= 0, "arguments must be non-negative")
         return bit32.rshift(a, b)
     end,

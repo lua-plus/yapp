@@ -63,7 +63,7 @@ local function make_bitop(op)
     end
 end
 
-local NaN = 0 / 0
+local inf = 1/0
 
 ---@param a integer
 ---@param b integer
@@ -75,7 +75,7 @@ local function lshift(a, b)
     local shifted = floor(a * pow(2, b))
 
     -- This number isn't representable.
-    if shifted == 1/0 then
+    if shifted == inf then
         return 0
     end
 
@@ -105,8 +105,8 @@ local bit_vanilla = {
     bor = make_bitop({ 0, 1, 1, 1 }),
     bxor = make_bitop({ 0, 1, 1, 0 }),
     bnot = bnot,
-    bshl = lshift,
-    bshr = rshift,
+    lshift = lshift,
+    rshift = rshift,
 
     _implementation_name = "bit_lua"
 }
