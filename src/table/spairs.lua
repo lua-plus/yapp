@@ -1,5 +1,4 @@
-
-local unpack =require("src.table.unpack")
+local unpack = require("src.table.unpack")
 
 ---@alias Yapp.Table.Spairs.State [string[], table<string, integer>, table]
 
@@ -7,7 +6,7 @@ local unpack =require("src.table.unpack")
 ---@param t_in Yapp.Table.Spairs.State
 ---@param last_key any
 ---@return any, any
-local function spairs_iter (t_in, last_key)
+local function spairs_iter(t_in, last_key)
     local keys, indices, t = unpack(t_in)
 
     local index = last_key ~= nil and
@@ -20,7 +19,7 @@ end
 
 --- "sorted pairs" - like calling `pairs` but keys (even non-string ones!) will
 --- always be traversed in alphabetical order.
---- 
+---
 --- Note that time complexity is not good.
 ---@generic K : any, V : any
 ---@param t table<K, V>

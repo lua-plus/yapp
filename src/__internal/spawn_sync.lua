@@ -1,5 +1,6 @@
 
 ---@param cmd string
+---@return string output
 local function spawn_sync (cmd)
     local handle, err = io.popen(cmd, "r")
 

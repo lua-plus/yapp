@@ -5,6 +5,12 @@ local _, get_source = pcall(require, "src.debug.fn.get_source")
 
 local global_names = globals.get_names()
 
+-- TODO rewrite this guy:
+-- allow option for max depth
+-- allow option for color
+-- allow option for iterator (eg spairs)
+-- allow options for handling 'bad' tables?
+ 
 --- Serialize a value into a lua-ready table.
 ---@param value any
 ---@param soft boolean?

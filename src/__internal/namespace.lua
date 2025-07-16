@@ -4,7 +4,6 @@ local is_dir  = require("src.fs.is_dir")
 local parse   = require("src.fs.path.parse")
 local join    = require("src.fs.path.join")
 local exists  = require("src.fs.exists")
-local crush   = require("src.table.crush")
 
 --- If a string has a trailing ".init", remove it.
 ---@param modname string

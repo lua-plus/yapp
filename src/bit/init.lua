@@ -18,6 +18,8 @@ local bit_unsafe = require("src.bit.unsafe")
 ---@field unsafe Yapp.Bit
 -- ---@field mt Yapp.Bit
 
+-- TODO provide an even-more-wrapped version with metatables.
+
 --- Throw some checks around the given implementation
 ---@param lib Yapp.Bit
 ---@return Yapp.Bit.Entrypoint

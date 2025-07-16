@@ -2,7 +2,7 @@ local bit = require("src.bit")
 local bit_vanilla = require("src.bit.impl.vanilla")
 
 local pow = require("src.math.pow")
-local list_to_keys = require("src.table.list_to_keys")
+local list_to_keys = require("src.table.list.to_keys")
 
 if bit_vanilla._implementation_name == bit._implementation_name then
     -- cannot test under Lua 5.1 as no native bitop library exists.
