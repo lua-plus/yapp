@@ -1,0 +1,17 @@
+#!/bin/sh
+
+clear
+
+test_for_exec () {
+    $1 -e "print(_VERSION, \"jit \" .. tostring(not not jit))"
+
+    busted --lua=$1
+
+    echo
+}
+
+test_for_exec lua
+
+test_for_exec lua5.3
+
+test_for_exec luajit
