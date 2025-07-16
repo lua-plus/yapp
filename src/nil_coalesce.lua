@@ -1,3 +1,4 @@
+local getn = require("src.table.getn")
 
 --- from my (unfinished-ish) requiratron project - acts as ?? does in javascript
 
@@ -25,7 +26,7 @@
 local nil_coalesce = function (...)
     local args = table.pack(...)
     
-    for i=0,#args do
+    for i=0,getn(args) do
         local element = args[i]
 
         if element ~= nil then

@@ -1,5 +1,6 @@
-local sep = require("src.fs.path.sep")
+local sep        = require("src.fs.path.sep")
 local table_pack = require("src.table.pack")
+local getn       = require("src.table.getn")
 
 ---@param ... string
 local function join(...)
@@ -7,7 +8,7 @@ local function join(...)
 
     local ret = {}
 
-    for i = 1, #elements do
+    for i = 1, getn(elements) do
         local item = elements[i]
 
         if item and #item ~= 0 then
