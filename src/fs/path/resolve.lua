@@ -1,3 +1,5 @@
+---@nospec
+
 local cwd = require("src.fs.cwd")
 local sep = require("src.fs.path.sep")
 local join = require("src.fs.path.join")

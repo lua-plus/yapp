@@ -1,7 +1,7 @@
 local join = require("src.fs.path.join")
 local sep = require("src.fs.path.sep")
 
-describe("join", function()
+describe("fs.path.join", function()
     describe("ignores", function()
         describe("leading", function()
             it("nil", function()

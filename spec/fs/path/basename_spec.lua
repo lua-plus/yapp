@@ -1,7 +1,7 @@
 
 local basename = require("src.fs.path.basename")
 
-describe("basename", function ()
+describe("fs.path.basename", function ()
     it("works well for a path", function ()
         assert.equal("map.lua", basename("src/table/map.lua"))
     end)
