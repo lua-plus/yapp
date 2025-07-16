@@ -1,4 +1,4 @@
-describe("namespace", function()
+describe("__internal.namespace", function()
     it("loads on demand", function()
         local yapp = require("src")
 
