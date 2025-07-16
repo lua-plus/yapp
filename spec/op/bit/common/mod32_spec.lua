@@ -1,7 +1,7 @@
 
 local pow = require("src.math.pow")
 
-local mod32 = require("src.bit.common.mod32")
+local mod32 = require("src.op.bit.common.mod32")
 
 describe("mod32", function ()
     it("wraps 2^32", function ()

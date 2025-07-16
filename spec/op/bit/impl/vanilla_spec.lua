@@ -1,5 +1,5 @@
 local bit = require("src.bit")
-local bit_vanilla = require("src.bit.impl.vanilla")
+local bit_vanilla = require("src.op.bit.impl.vanilla")
 
 local pow = require("src.math.pow")
 local list_to_keys = require("src.table.list.to_keys")
