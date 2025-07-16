@@ -1,3 +1,4 @@
+---@nospec
 
 local namespace = require("src.__internal.namespace")
 
