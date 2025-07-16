@@ -1,5 +1,10 @@
 
---- Load a serialized value. BEWARE: This function performs arbitrary execution. 
+---@diagnostic disable-next-line:deprecated
+local load = loadstring or load
+
+--- Load a serialized value. 
+--- 
+--- **BEWARE:** This function performs arbitrary execution. 
 ---@param str string
 ---@return any
 local function deserialize (str)
