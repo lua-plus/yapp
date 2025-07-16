@@ -1,6 +1,6 @@
 local floor = math.floor
 local pow = require("src.math.pow")
-local mod32 = require("src.bit.common.mod32")
+local mod32 = require("src.op.bit.common.mod32")
 
 -- value used to simulate 
 local wrap = floor(pow(2, 33))

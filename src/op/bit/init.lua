@@ -1,5 +1,5 @@
-local mod32 = require("src.bit.common.mod32")
-local bit_unsafe = require("src.bit.unsafe")
+local mod32 = require("src.op.bit.common.mod32")
+local bit_unsafe = require("src.op.bit.unsafe")
 
 --- Integer bitwise operations equivalent to lua 5.3. You should assume this ignores metatables,
 --- because integers.

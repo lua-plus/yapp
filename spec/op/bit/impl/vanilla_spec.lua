@@ -1,4 +1,4 @@
-local bit = require("src.bit")
+local bit = require("src.op.bit")
 local bit_vanilla = require("src.op.bit.impl.vanilla")
 
 local pow = require("src.math.pow")
