@@ -1,3 +1,5 @@
+---@nospec Can only be tested against impl/vanilla in lua 5.3
+
 ---@type Yapp.Bit
 local bit_53 = {
     band = function(a, b)

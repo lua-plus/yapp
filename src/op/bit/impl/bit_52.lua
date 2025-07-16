@@ -1,4 +1,8 @@
-local bit32 = assert(package.loaded["bit32"])
+---@nospec Can only be tested against impl/vanilla in lua 5.2
+
+if false then
+    bit32 = {}
+end
 
 ---@type Yapp.Bit
 local bit_52 = {

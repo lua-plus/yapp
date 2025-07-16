@@ -1,3 +1,5 @@
+---@nospec
+
 -- Load bit library without wrapping any callbacks in mod32
 
 do

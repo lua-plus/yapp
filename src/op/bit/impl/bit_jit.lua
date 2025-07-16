@@ -1,4 +1,8 @@
-local bit = assert(package.loaded["bit"])
+---@nospec Can only be tested against impl/vanilla in luajit
+
+if false then
+    bit = {}
+end
 
 -- bit.tobit,
 -- bit.tohex,
