@@ -1,27 +1,27 @@
 local bit = require("src.op.bit")
-local bit_vanilla = require("src.op.bit.impl.vanilla")
+local bit_compat = require("src.op.bit.impl.bit_compat")
 
 local pow = require("src.math.pow")
 local list_to_keys = require("src.table.list.to_keys")
 
-if bit_vanilla._implementation_name == bit._implementation_name then
+if bit_compat._implementation_name == bit._implementation_name then
     -- cannot test under Lua 5.1 as no native bitop library exists.
     return
 end
 
-describe("bit_vanilla", function()
+describe("op.bit.impl.bit_compat", function()
     local neg_ok = list_to_keys({ "band", "bor", "bxor", "bnot" })
 
     it("has the same fields as native", function()
         for k, v in pairs(bit) do
             if type(v) == "function" then
-                local vanilla = bit_vanilla[k]
+                local vanilla = bit_compat[k]
 
                 assert.Function(vanilla)
             end
         end
 
-        for k, v in pairs(bit_vanilla) do
+        for k, v in pairs(bit_compat) do
             if type(v) == "function" then
                 local native = bit[k]
 
@@ -35,7 +35,7 @@ describe("bit_vanilla", function()
         for op_name, native_op in pairs(bit) do
             if type(native_op) == "function" then
                 it("with operator " .. op_name, function()
-                    local vanilla_op = bit_vanilla[op_name]
+                    local vanilla_op = bit_compat[op_name]
 
                     -- lower bound for second argument.
                     -- some operators, like left/right shift have undefined behavior
@@ -63,7 +63,7 @@ describe("bit_vanilla", function()
         for op_name, native_op in pairs(bit) do
             if type(native_op) == "function" then
                 describe("with operator " .. op_name, function()
-                    local vanilla_op = bit_vanilla[op_name]
+                    local vanilla_op = bit_compat[op_name]
 
                     if neg_ok[op_name] then
                         it("and two very small values", function()

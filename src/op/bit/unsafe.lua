@@ -25,4 +25,4 @@ do
     end
 end
 
-return require("src.op.bit.impl.vanilla")
+return require("src.op.bit.impl.bit_compat")
