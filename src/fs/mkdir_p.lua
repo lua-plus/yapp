@@ -1,3 +1,4 @@
+---@nospec
 
 local dirname = require("src.fs.path.dirname")
 local split = require("src.string.split")

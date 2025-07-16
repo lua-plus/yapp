@@ -38,7 +38,9 @@ end
 
 
 local cwd_unix = function()
-    local pwd = assert(os.getenv("PWD"), "No PWD")
+    local pwd = os.getenv("PWD")
+
+    assert(pwd and #pwd ~= 0, "No PWD")
 
     return terminate_sep(pwd)
 end
