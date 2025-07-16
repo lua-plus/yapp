@@ -8,7 +8,8 @@ local function spawn_sync (cmd)
         error(err)
     end
 
-    return handle:read("a")
+    -- remove trailing newline
+    return handle:read("a"):sub(1,-2)
 end
 
 return spawn_sync
