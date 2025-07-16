@@ -16,6 +16,7 @@ local function release()
         return ret:match("(%S+)\n$")
     end
 
+    -- TODO why do I not pcall here?
     return spawn_sync("uname -r")
 end
 
