@@ -21,9 +21,18 @@ end
 ---@param modpath string
 ---@param fields table?
 local function namespace(modname, modpath, fields)
-    -- TODO assert modname & modpath are expected values
-
     local modroot = rm_trailing_init(modname)
+
+    -- Lua5.1/LuaJIT only provide modname
+    if not modpath then
+        local path, err = package.searchpath(modname, package.path)
+
+        if path then
+            modpath = path
+        else
+            error(err)
+        end
+    end
 
     local dir = dirname(modpath)
 
