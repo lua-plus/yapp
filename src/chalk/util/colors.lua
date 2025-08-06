@@ -213,6 +213,7 @@ colors.styles = {
 }
 
 -- now we chuck them all into one bucket
+---@type table<string, Yapp.Chalk.Style>
 colors.styles.all = (function()
     local all = {}
 
