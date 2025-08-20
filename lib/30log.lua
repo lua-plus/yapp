@@ -1,4 +1,4 @@
-local class = require("lib.30log.30log") --[[ @as unknown ]]
+local class = require("lib.30log.30log")
 
 if false then
     ---@generic T
@@ -37,6 +37,7 @@ if false then
     ---| { isInstance: fun(instance: any): boolean }
 
     ---@type LogEntrypoint
+    ---@diagnostic disable-next-line:cast-local-type
     class = function (name, properties)
         return nil
     end
