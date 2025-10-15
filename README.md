@@ -8,7 +8,20 @@ extended functionality to Lua's standard library. It also includes a few
 YAPP is still in early development. APIs are subject to (unannounced) change
 until version `1.0.0`. Documentation is also currently severely lacking.
 
-## Namespaces
+## Using YAPP Modules
+
+YAPP is designed to be lightweight and tree-shakeable. Its modules are loaded
+dynamically by the same paths as they are found in the file tree.
+
+```lua
+-- These two statements are equivalent
+local table_map = require("yapp.table.map")
+local table_map = require("yapp").table.map
+```
+
+Namespaces load modules dynamically, so YAPP's code weight is minimal.
+
+## Namespace list
  - **yapp**
    - **class** More complex 'non-primitive' types
    - **debug** Polyfills for `debug.traceback` and `warn`
