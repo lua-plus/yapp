@@ -19,7 +19,8 @@ local function get_table_entries(t, ser)
 
         -- is_number -> k > i_max
         -- not is_number or k > i_max
-        if t_k ~= "number" or k > i_max then
+        -- TODO k < 1 keys should be placed previous to ipairs results.
+        if t_k ~= "number" or k > i_max or k < 1 then
             -- if the key is a valid lua variable name it doesn't need brackets
             local k_str = is_lua_name(k) and k or "[" .. ser(k) .. "]"
 
