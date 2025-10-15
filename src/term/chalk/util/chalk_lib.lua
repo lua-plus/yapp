@@ -1,7 +1,7 @@
 local crush     = require("src.table.crush")
 local pack      = require("src.table.pack")
-local support   = require("src.chalk.util.support")
-local colors    = require("src.chalk.util.colors")
+local support   = require("src.term.chalk.util.support")
+local colors    = require("src.term.chalk.util.colors")
 
 ---@alias Yapp.Chalk.Getter fun(...: any): string
 ---@alias Yapp.Chalk.Field Yapp.Chalk.Getter | Yapp.Chalk.SubChalk
@@ -193,12 +193,18 @@ function chalk_lib.mt_call(chalk, ...)
     for i = 1, argv do
         local s = tostring(args[i])
 
-        ret = ret .. s
+        if s ~= "" then
+            -- Put spaces between arguments
+            if i ~= 1 then
+                ret = ret .. " "
+            end
+            ret = ret .. s
 
-        -- any escape is a good indicator this is a chalk substring
-        if s:match("\27") then
-            -- so we re-escape to this current style
-            ret = ret .. s_in
+            -- any escape is a good indicator this is a chalk substring
+            if s:match("\27") then
+                -- so we re-escape to this current style
+                ret = ret .. s_in
+            end
         end
     end
 

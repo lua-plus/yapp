@@ -1,5 +1,5 @@
 
-return require("src.chalk.chalk")
+return require("src.term.chalk.chalk")
 
 -- TODO chalk.cursor
 -- TODO chalk.ansi256()

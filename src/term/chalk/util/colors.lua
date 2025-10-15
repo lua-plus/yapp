@@ -1,5 +1,5 @@
 local unpack = require("src.table.unpack")
-local support = require("src.chalk.util.support")
+local support = require("src.term.chalk.util.support")
 local round = require("src.math.round")
 
 local colors = {}
