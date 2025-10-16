@@ -1,5 +1,18 @@
 ---@diagnostic disable:invisible
 
+--[[
+This test suite shows that the YAPP implementation of Promises holds to the A+
+specification. A very small number of sections in the specification have been 
+skipped: 
+ - Section 2.2.4
+ - Section 2.2.5
+ - Section 2.3.3.1
+ - Section 2.3.3.2
+
+These sections are all marked in the test file, with a "-- SKIPPED" comment
+below. Justifications are provided there.
+]]
+
 local Promise = require("src.class.Promise")
 local crush   = require("src.table.crush")
 local unpack  = require("src.table.unpack")
@@ -638,6 +651,7 @@ local function promise_suite(allow_recursion, depth)
                 end
 
                 -- Section 2.3.3.1 - skipped because it's just 'let then be x.then'
+                -- SKIPPED
 
                 -- Section 2.3.3.2 - skipped because userdata indexing commonly results in errors.
                 -- SKIPPED
@@ -952,7 +966,7 @@ local function promise_suite(allow_recursion, depth)
     end)
 end
 
-describe("Promise", function()
+describe("class.Promise", function()
     describe("autotick=true", function()
         promise_suite(false, 0)
     end)
