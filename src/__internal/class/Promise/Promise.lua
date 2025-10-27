@@ -3,7 +3,7 @@ local unpack       = require("src.table.unpack")
 local flatten_2d   = require("src.table.list.flatten_2d")
 local traceback    = require("src.debug.traceback")
 local defer        = require("src.__internal.defer")
-local bindargs     = require("src.class.Promise.bindargs")
+local bindargs     = require("src.__internal.class.Promise.bindargs")
 local op_index     = require("src.op.index")
 local class        = require("lib.30log")
 
