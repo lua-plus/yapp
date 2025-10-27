@@ -28,7 +28,12 @@ local class        = require("lib.30log")
 ---@alias Yapp.Promise.Then<T> fun(self: Yapp.Promise, on_fulfilled?: (fun(...: T): `R`), on_rejected?: (fun(...: any): `R`)): Yapp.Promise<R>
 
 ---@generic A, B, C, D, Ret
----@alias Yapp.Promise.AsyncFn fun(fn: (fun(a: A, b: B, c: C, d: D): Ret | Yapp.Promise<Ret>)): (fun(a: A, b: B, c: C, d: D): Yapp.Promise<Ret>)
+---@alias Yapp.Promise.AsyncFn 
+---| fun(fn: (fun(a: A, b: B, c: C, d: D): Ret | Yapp.Promise<Ret>)): (fun(a: A, b: B, c: C, d: D): Yapp.Promise<Ret>)
+---| fun(fn: (fun(a: A, b: B, c: C): Ret | Yapp.Promise<Ret>)): (fun(a: A, b: B, c: C): Yapp.Promise<Ret>)
+---| fun(fn: (fun(a: A, b: B): Ret | Yapp.Promise<Ret>)): (fun(a: A, b: B): Yapp.Promise<Ret>)
+---| fun(fn: (fun(a: A): Ret | Yapp.Promise<Ret>)): (fun(a: A): Yapp.Promise<Ret>)
+---| fun(fn: (fun(): Ret | Yapp.Promise<Ret>)): (fun(): Yapp.Promise<Ret>)
 
 ---@generic NewRes
 ---@class Yapp.Promise<Res> : Log.BaseFunctions, { after: fun(self: Yapp.Promise<Res>, on_res: (fun(value: Res): NewRes?), on_rej: (fun(value: Res): NewRes?)): Yapp.Promise<NewRes> }, { catch: fun(self: Yapp.Promise<Res>, on_rej: fun(value: Res): NewRes?): Yapp.Promise<NewRes> }, { await: fun(self: Yapp.Promise<Res>): Res }
