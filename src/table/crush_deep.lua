@@ -1,4 +1,4 @@
-local iter_queue = require("src.iter_queue")
+local iter_queue = require("src.iter.queue")
 
 --- Create a table whose values are defined by each table in ..., in order,
 --- deeply.
