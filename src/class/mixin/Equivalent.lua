@@ -1,11 +1,14 @@
 local get_properties = require("src.__internal.class.get_properties")
+local named_mixin = require("src.__internal.class.mixin.named_mixin")
 local get_class = require("src.__internal.class.get_class")
+local Verify = require("src.class.mixin.Verify")
+local expect_properties = require("src.__internal.class.mixin.expect_properties")
 
 ---@class Yapp.Mixin.Equivalent : Log.BaseFunctions
-local Equivalent = {}
+local Equivalent = named_mixin("Equivalent", {})
 
 --- Check if two values are instances or classes, and that they are equivalent.
---- This is the function used by __eq 
+--- This is the function used by __eq
 ---@generic S : Log.Class, S: Log.BaseFunctions
 ---@generic O : Log.Class, O: Log.BaseFunctions
 ---@param self S
@@ -72,11 +75,9 @@ local function Equivalent_get_getters(class)
                 "%q must be set to true or false.",
                 class_name, name
             ), 2)
-        
         elseif prop_flag == true then
             local getter = get_properties.getter(class, name)
             getters[getter] = true
-
         elseif prop_flag ~= false then
             error(string.format(
                 "Equivalent: unknown property flag value %s", prop_flag
@@ -129,6 +130,26 @@ end
 
 Equivalent.__eq = function(self, other)
     return Equivalent.is(self, other)
+end
+
+Equivalent[Verify.verification] = function(class, properties)
+    local expected, unexpected = expect_properties(class, properties)
+
+    if #expected == 0 and #unexpected == 0 then
+        return true
+    end
+
+    local err_expected =
+        #expected == 1 and ("Expected equivalence property %s"):format(expected[1]) or
+        #expected >= 2 and ("Expected equivalence properties %s"):format(table.concat(expected, ", ")) or
+        nil
+
+    local err_unexpected =
+        #unexpected == 1 and ("Unexpected equivalence property %s"):format(unexpected[1]) or
+        #unexpected >= 2 and ("Unexpected equivalence properties %s"):format(table.concat(unexpected, ", ")) or
+        nil
+
+    return false, table.concat({ err_expected, err_unexpected }, ". ")
 end
 
 return Equivalent
