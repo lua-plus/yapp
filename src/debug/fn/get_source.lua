@@ -10,7 +10,10 @@ local function get_source (fn)
         return "(C function)"
     end
 
-    local src = info.source:sub(2)
+    local src = info.source
+    if src:sub(1,1) == "@" then
+        src = info.source:sub(2)
+    end
 
     return string.format("%s:%d", src, info.linedefined)
 end
