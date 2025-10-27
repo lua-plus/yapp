@@ -1,5 +1,5 @@
 local sep = require("src.fs.path.sep")
-local is_windows = require("src.os.is_windows")
+local uname = require("src.os.sys.uname")
 
 --- Append a slash to the end of a path if it isn't already there.
 ---@param path string
@@ -22,7 +22,11 @@ if has_lfs then
     return cwd_lfs
 end
 
-if is_windows then
+if uname == nil then
+    return nil
+end
+
+if uname == "windows" then
     local cwd_windows = function()
         local handle, err = io.popen("cd")
 

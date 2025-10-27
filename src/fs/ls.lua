@@ -1,6 +1,6 @@
 local has_lfs, lfs = pcall(require, "lfs")
 
-local is_windows = require("src.os.is_windows")
+local uname = require("src.os.sys.uname")
 
 ---@alias Yapp.Fs.Ls fun (path: string): string[]
 
@@ -22,7 +22,11 @@ if has_lfs then
     return ls_lfs
 end
 
-if is_windows then
+if uname == nil then
+    return nil
+end
+
+if uname == "windows" then
     --- really this is dos too but dos will match windows
     ---@type Yapp.Fs.Ls
     local function ls_windows(path)

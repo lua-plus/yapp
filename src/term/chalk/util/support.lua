@@ -1,10 +1,10 @@
-local is_windows = require("src.os.is_windows")
-local release    = require("src.os.release")
+local uname   = require("src.os.sys.uname")
+local release = require("src.os.release")
 
-local support    = {}
+local support = {}
 
 ---@enum Yapp.Chalk.SupportLevel
-support.level    = {
+support.level = {
     NONE = 1,
     ANSI = 2,
     ANSI_256 = 3,
@@ -16,7 +16,7 @@ function support.get()
     -- From https://github.com/chalk/chalk/blob/main/source/vendor/supports-color/index.js
     -- Windows 10 build 10586 is the first Windows release that supports 256 colors.
     -- Windows 10 build 14931 is the first release that supports 16m/TrueColor.
-    if is_windows then
+    if uname == "windows" then
         local release = release()
         if release then
             local ver, patch, build = release:match("(%d+)%.(%d+)%.(%d+)")

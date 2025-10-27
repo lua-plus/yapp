@@ -1,7 +1,7 @@
 
-local spawn_sync = require("src.__internal.spawn_sync")
+local spawn_sync = require("src.os.spawn.sync")
 
-describe("__internal.spawn_sync", function ()
+describe("os.spawn.sync", function ()
     it("returns the command's output", function ()
         local res = spawn_sync("echo \"test\"")
 

@@ -2,8 +2,7 @@
 --- TODO is there a way to test this?
 
 local has_lfs, lfs = pcall(require, "lfs")
-
-local is_windows = require("src.os.is_windows")
+local uname = require("src.os.sys.uname")
 
 ---@alias Yapp.Fs.Mkdir fun (path: string): nil
 
@@ -15,7 +14,11 @@ if has_lfs then
     return mkdir_lfs
 end
 
-if is_windows then
+if uname == nil then
+    return nil
+end
+
+if uname == "windows" then
     ---@type Yapp.Fs.Mkdir
     local function mkdir_windows(path)
         os.execute(string.format("mkdir %q", path))

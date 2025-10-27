@@ -1,6 +1,6 @@
 
 local replace = require("src.fs.path.replace")
-local is_windows = require("src.os.is_windows")
+local is_windows = require("src.os.sys.uname") == "windows"
 
 describe("fs.path.replace", function ()
     it("modifies the path for the system OS", function ()

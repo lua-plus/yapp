@@ -1,10 +1,11 @@
-local is_windows = require("src.os.is_windows")
-local spawn_sync = require("src.__internal.spawn_sync")
+local uname      = require("src.os.sys.uname")
+local spawn_sync = require("src.os.spawn.sync")
 local warn       = require("src.debug.warn")
 
+--- Get the release number of the operating system
 ---@return string?
 local function release()
-    if is_windows then
+    if uname == "windows" then
         local ok, ret = pcall(spawn_sync, "ver")
 
         if not ok then
@@ -14,6 +15,10 @@ local function release()
         end
 
         return ret:match("(%S+)\n$")
+    end
+
+    if uname == nil then
+        return nil
     end
 
     -- TODO why do I not pcall here?

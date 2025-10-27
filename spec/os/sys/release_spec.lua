@@ -1,5 +1,5 @@
 
-local release = require("src.os.release")
+local release = require("src.os.sys.release")
 
 describe("os.release", function ()
     it("returns a string", function ()
