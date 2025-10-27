@@ -1,5 +1,5 @@
 local spawn_sync = require("src.os.spawn.sync")
-local uname = require("src.os.sys.uname")
+local is_windows = require("src.__internal.os.is_windows")
 
 ---@param exe string
 ---@return boolean
@@ -9,7 +9,7 @@ local function has_cmd(exe)
     software that uses shell scripts. `where` performs almost exactly the
     same as `which`, but has different formats.
     ]]
-    local which = uname == "windows" and "where" or "which"
+    local which = is_windows and "where" or "which"
 
     local cmd = string.format("%s %s", which, exe)
     local ok = pcall(spawn_sync, cmd)

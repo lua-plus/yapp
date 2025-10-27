@@ -1,5 +1,5 @@
 local uname   = require("src.os.sys.uname")
-local release = require("src.os.release")
+local release = require("src.os.sys.release")
 
 local support = {}
 
