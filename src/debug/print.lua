@@ -1,6 +1,6 @@
 local serialize = require("src.io.serialize")
 local chalk = require("src.term.chalk")
-local get_table_entries = require("src.io.serialize.util.get_table_entries")
+local get_table_entries = require("src.__internal.io.serialize.get_table_entries")
 
 local get_source = (function()
     local ok, get_source = pcall(require, "src.debug.fn.get_source")

@@ -1,6 +1,8 @@
 local globals = require("src.__internal.globals")
 globals.init(_G)
-local base_options = require("src.io.serialize.util.options")
+local base_options = require("src.__internal.io.serialize.options")
+
+-- TODO FIXME options.iterator
 
 local crush_deep = require("src.table.crush_deep")
 
@@ -75,6 +77,8 @@ local function serialize_internal(value, state)
         error("Cannot serialize " .. ty)
     end
 
+    -- TODO FIXME more configuration here. what if i want global functions but not
+    -- global tables? what if i want some tables?
     if (ty == "table" or ty == "function") and options.use_globals then
         local global_name = global_names[value]
 

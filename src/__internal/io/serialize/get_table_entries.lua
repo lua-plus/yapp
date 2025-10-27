@@ -1,4 +1,4 @@
-local is_lua_name = require("src.io.serialize.util.is_lua_name")
+local is_lua_name = require("src.__internal.io.serialize.is_lua_name")
 
 ---@param t table
 ---@param ser fun(item: any): string
