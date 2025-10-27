@@ -1,7 +1,7 @@
 local crush     = require("src.table.crush")
 local pack      = require("src.table.pack")
-local support   = require("src.term.chalk.util.support")
-local colors    = require("src.term.chalk.util.colors")
+local support   = require("src.__internal.term.chalk.support")
+local colors    = require("src.__internal.term.chalk.colors")
 
 ---@alias Yapp.Chalk.Getter fun(...: any): string
 ---@alias Yapp.Chalk.Field Yapp.Chalk.Getter | Yapp.Chalk.SubChalk
