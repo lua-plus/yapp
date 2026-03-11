@@ -329,6 +329,7 @@ end
 ---@param index integer
 ---@return boolean ok
 function Promise:_handle_settle_value(state, value, control, index)
+    -- TODO does this handle for nested values?
     if self == value then
         local err = traceback("Promise may not be a member of" ..
             " its own settled values")
@@ -551,6 +552,8 @@ do
                 end
             end, p, control)
         end
+
+        return p
     end
 
     --- Table of active coroutines.
