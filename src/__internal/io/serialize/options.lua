@@ -1,6 +1,5 @@
 local ok, get_source    = pcall(require, "src.debug.fn.get_source")
-local get_table_entries = require("src.io.serialize.util.get_table_entries")
-
+local get_table_entries = require("src.__internal.io.serialize.get_table_entries")
 
 local get_source = (function()
     if ok then
