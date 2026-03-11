@@ -595,9 +595,14 @@ do
     end
 
     ---@generic T
-    ---@param self Yapp.Promise<T>
+    ---@param self T | Yapp.Promise<T>
     ---@return T
-    function Promise:await()
+    function Promise.await(self)
+        -- Support awaiting non-promise objects.
+        if not Promise.is(self) then
+            return self
+        end
+        
         local co = coroutine.running()
 
         assert(
